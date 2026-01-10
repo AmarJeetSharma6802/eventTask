@@ -81,15 +81,13 @@
   background: #0284c7;
 }
 
+/* model from  */
 
 
-/* ===============================
-   OVERLAY
-================================ */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.65); /* dark overlay */
+  background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -97,12 +95,8 @@
   z-index: 9999;
 }
 
-/* ===============================
-   MODAL BOX
-================================ */
-.modal > * {
-  box-sizing: border-box;
-}
+
+
 
 .modalContent {
   background: #ffffff;
@@ -115,9 +109,7 @@
   animation: modalFade 0.3s ease;
 }
 
-/* ===============================
-   TEXT
-================================ */
+
 .modalContent h2 {
   font-size: 24px;
   margin-bottom: 10px;
@@ -131,9 +123,7 @@
   line-height: 1.5;
 }
 
-/* ===============================
-   FORM
-================================ */
+
 .modalContent form {
   display: flex;
   flex-direction: column;
@@ -153,9 +143,7 @@
   border-color: #0ea5e9;
 }
 
-/* ===============================
-   BUTTON
-================================ */
+
 .modalContent button {
   margin-top: 6px;
   background: #0ea5e9;
@@ -178,9 +166,7 @@
   cursor: not-allowed;
 }
 
-/* ===============================
-   CLOSE ICON
-================================ */
+
 .close {
   position: absolute;
   top: 14px;
@@ -195,9 +181,7 @@
   color: #0f172a;
 }
 
-/* ===============================
-   ANIMATION
-================================ */
+
 @keyframes modalFade {
   from {
     opacity: 0;
@@ -215,7 +199,6 @@
     margin: 0 14px;
   }
 }
-
 
 @media (max-width: 768px) {
   .section {
