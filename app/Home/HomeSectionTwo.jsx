@@ -2,7 +2,7 @@
 import React from "react";
 import style from "../style/home.module.css";
 
-function HomeSectionTwo({ events }) {
+function HomeSectionTwo({ events ,onGetTickets}) {
   return (
     <section className={style.section}>
       <h2 className={style.heading}>Popular Events</h2>
@@ -27,9 +27,7 @@ function HomeSectionTwo({ events }) {
 
               <button
                 className={style.btn}
-                onClick={() =>
-                  window.location.assign(event.sourceUrl)
-                }
+                 onClick={() => onGetTickets(event.sourceUrl)}
               >
                 View Event
               </button>

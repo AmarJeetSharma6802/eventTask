@@ -34,27 +34,29 @@ function Subscribe({ eventUrl, onClose }) {
 
   return (
     <div className={style.modal}>
-      <h2>Get Tickets</h2>
-      <p>Enter your email to continue to the official ticket website.</p>
+  <div className={style.modalContent}>
+    <h2>Get Tickets</h2>
+    <p>Enter your email to continue to the official ticket website.</p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        placeholder="Enter your email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Redirecting..." : "Continue"}
-        </button>
-      </form>
+      <button type="submit" disabled={loading}>
+        {loading ? "Redirecting..." : "Continue"}
+      </button>
+    </form>
 
-      <span className={style.close} onClick={onClose}>
-        ✕
-      </span>
-    </div>
+    <span className={style.close} onClick={onClose}>
+      ✕
+    </span>
+  </div>
+</div>
   );
 }
 

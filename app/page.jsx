@@ -47,7 +47,6 @@ export default function EventSwiper() {
 
   return (
     <>
-      {/* 🔥 SWIPER */}
       <Swiper
         spaceBetween={30}
         centeredSlides
@@ -90,7 +89,11 @@ export default function EventSwiper() {
         </div>
       </Swiper>
 
-      <HomeSectionTwo events={events} />
+      <HomeSectionTwo
+        events={events}
+        onGetTickets={(el) => setSelectedEventUrl(el)} 
+      />
+
       {selectedEventUrl && (
         <Subscribe
           eventUrl={selectedEventUrl}
