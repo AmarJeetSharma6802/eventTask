@@ -1,36 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+One of the main challenges in this assignment was scraping event data and storing it properly in the database. I had previously worked on web scraping using Cheerio during my Internshala project, where I was scraping data using a simple GET route, so that part was relatively familiar. However, in this project, the requirement was not just to scrape the data but also to clean it, structure it correctly, and then save it into the database before fetching it on the frontend.
 
-## Getting Started
+While scraping data from www.timeout.com
+, I had to carefully inspect the website’s structure and class names, as even small changes in HTML could break the scraper. It took some time to analyze the DOM properly and extract only the required fields. After scraping, I used Mongoose updateOne() to store and update event data in the database, which helped avoid duplicate entries.
 
-First, run the development server:
+Another challenge was implementing a cron job to automate the scraping process. I had not used cron jobs in my previous projects, so this was a new learning experience for me. I researched the concept, clarified my understanding, and then implemented it to ensure data updates could be handled automatically in the future.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+On the frontend side, my focus was to create a modern and clean UI. I first planned the layout and then used Swiper to display events in a visually appealing way. Event images were used as background images with layered content on top, which required careful styling to maintain readability and responsiveness.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Managing component communication was another area where I faced some difficulty. I reused the same EmailForm component in multiple places (page.jsx and HomeSectionTwo.jsx). To handle this, I passed data using props, such as eventUrl, and controlled the form’s visibility using state and callback props like onClose. Initially, opening the email form from the button inside HomeSectionTwo was challenging, but I resolved it by passing a handler function (onGetTickets) as a prop and managing the selected event state at a higher level.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Finally, making the application fully responsive across mobile, tablet, and desktop views required additional adjustments, especially for sliders and cards. With proper testing and styling tweaks, I ensured the UI worked smoothly on different screen sizes.
