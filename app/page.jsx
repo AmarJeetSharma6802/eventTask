@@ -43,7 +43,7 @@ export default function EventSwiper() {
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
 
-  if (loading) return <p style={{ color: "#fff" }}>Loading events...</p>;
+  if (loading) return <p style={{ color: "#090606" }}>Loading events...</p>;
 
   return (
     <>

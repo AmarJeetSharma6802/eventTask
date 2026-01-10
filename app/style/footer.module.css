@@ -1,10 +1,9 @@
   .my_footer_details {
     padding: 10px;
-    /* background-color: #232f3e; */
     color: white;
     display: flex;
     justify-content: space-between;
-    border-top: 0.5px solid rgb(232, 230, 230);
+    border-top: 0.5px solid rgb(227, 225, 225);
   }
   
   .mydetails {
@@ -53,3 +52,9 @@
   .portfolio_img{
     width: 30px;
   }
+
+@media (max-width: 450px) {
+  .awesomeFONT{
+    display: none;
+  }
+}
