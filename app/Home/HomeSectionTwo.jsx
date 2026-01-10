@@ -1,21 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import style from "../style/home.module.css";
 
 function HomeSectionTwo({ events ,onGetTickets}) {
-const [filterEvents ,setFilterEvents] = useState()
-
-
-  
-
   return (
-    <div>
-
-      <section className={style.section}>
-      <div className={style.heading_filter}>
+    <section className={style.section}>
       <h2 className={style.heading}>Popular Events</h2>
-      <div></div>
-      </div>
 
       <div className={style.grid}>
         {events.map((event) => (
@@ -46,7 +36,6 @@ const [filterEvents ,setFilterEvents] = useState()
         ))}
       </div>
     </section>
-    </div>
   );
 }
 
