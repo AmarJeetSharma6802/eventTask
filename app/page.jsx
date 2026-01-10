@@ -74,9 +74,7 @@ export default function EventSwiper() {
                 <span className="category">{event.category}</span>
                 <h2>{event.title}</h2>
 
-                <button
-                  onClick={() => setSelectedEventUrl(event.sourceUrl)}
-                >
+                <button onClick={() => setSelectedEventUrl(event.sourceUrl)}>
                   Get Tickets
                 </button>
               </div>
@@ -92,7 +90,7 @@ export default function EventSwiper() {
         </div>
       </Swiper>
 
-<HomeSectionTwo/>
+      <HomeSectionTwo events={events} />
       {selectedEventUrl && (
         <Subscribe
           eventUrl={selectedEventUrl}
