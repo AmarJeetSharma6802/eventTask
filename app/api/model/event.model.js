@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
   title: String,
-  category: String, // Technology, Design, Business, Workshop
-  date: Date,       // IMPORTANT (future events filter)
+  category: String, 
+  date: Date,       
   location: String,
   image: String,
   sourceUrl: { type: String, unique: true },
