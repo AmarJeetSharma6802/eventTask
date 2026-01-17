@@ -150,6 +150,112 @@ width: 600px;
   stroke-dashoffset: calc(126 * (1 - var(--progress)));
 }
 
+
+/* auth form  */
+.authBox {
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 28px 26px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.authBox h2 {
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.authBox .error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.authBox input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.authBox input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.authBox button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.authBox button:hover {
+  background: #1e40af;
+}
+
+.authBox button:active {
+  transform: scale(0.98);
+}
+
+.authBox button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.authBox .link {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #2563eb;
+  cursor: pointer;
+  user-select: none;
+}
+
+.authBox .link:hover {
+  text-decoration: underline;
+}
+
+.authBox input[name="otp"] {
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .authBox {
+    margin: 50px 14px;
+    padding: 22px 18px;
+  }
+
+  .authBox h2 {
+    font-size: 1.3rem;
+  }
+}
+
+
 @media (max-width: 850px) {
   .heroSwiper {
     height: auto;

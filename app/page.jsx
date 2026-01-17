@@ -1,105 +1,183 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Subscribe from "./emailForm/Subscribe.jsx";
-import HomeSectionTwo from "./Home/HomeSectionTwo.jsx";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+export default function AuthForm() {
+  const router = useRouter();
 
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+  const [step, setStep] = useState("register"); 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-export default function EventSwiper() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    otp: "",
+  });
 
-  const [selectedEventUrl, setSelectedEventUrl] = useState(null);
-
-  const progressCircle = useRef(null);
-  const progressContent = useRef(null);
-
-  useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const res = await fetch("/api/event");
-        const data = await res.json();
-        setEvents(data);
-      } catch (err) {
-        console.error("Fetch failed", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchEvents();
-  }, []);
-
-  const onAutoplayTimeLeft = (s, time, progress) => {
-    if (!progressCircle.current || !progressContent.current) return;
-
-    progressCircle.current.style.setProperty("--progress", 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  if (loading) return <p style={{ color: "#090606",minHeight:"100vh" }} className="loading_p"><img src="/sydfest-horizontal.png" alt="" className="loading_img"/></p>;
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const res = await fetch("/api/controller/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "register",
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (!res.ok) return setMessage(data.message || "Failed");
+
+    setMessage("OTP sent to email");
+    setStep("otp");
+  };
+
+  /* ================= VERIFY OTP ================= */
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const res = await fetch("/api/controller/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "verify_otp",
+        email: form.email,
+        otp: form.otp,
+      }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (!res.ok) return setMessage(data.message || "OTP failed");
+
+    router.push("/Home");
+  };
+
+  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const res = await fetch("/api/controller/auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "login",
+        email: form.email,
+        password: form.password,
+      }),
+    });
+
+    const data = await res.json();
+    setLoading(false);
+
+    if (!res.ok) return setMessage(data.message || "Login failed");
+
+    router.push("/Home");
+  };
 
   return (
-    <>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        navigation
-        modules={[Autoplay, Pagination, Navigation]}
-        onAutoplayTimeLeft={onAutoplayTimeLeft}
-        className="heroSwiper"
-      >
-        {events.map((event) => (
-          <SwiperSlide key={event._id}>
-            <div
-              className="slide-bg"
-              style={{ backgroundImage: `url(${event.image})` }}
-            />
+    <div className="authBox">
+      <h2>
+        {step === "register" && "Register"}
+        {step === "otp" && "Verify OTP"}
+        {step === "login" && "Login"}
+      </h2>
 
-            <div className="slide-content">
-              <div className="slide-image">
-                <img src={event.image} alt={event.title} />
-              </div>
+      {message && <p className="error">{message}</p>}
 
-              <div className="slide-text">
-                <span className="category">{event.category}</span>
-                <h2>{event.title}</h2>
+      {step === "register" && (
+        <form onSubmit={handleRegister}>
+          <input
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
 
-                <button onClick={() => setSelectedEventUrl(event.sourceUrl)}>
-                  Get Tickets
-                </button>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+          <button disabled={loading}>
+            {loading ? "Sending OTP..." : "Register"}
+          </button>
 
-        <div className="autoplay-progress" slot="container-end">
-          <svg viewBox="0 0 48 48" ref={progressCircle}>
-            <circle cx="24" cy="24" r="20"></circle>
-          </svg>
-          <span ref={progressContent}></span>
-        </div>
-      </Swiper>
-
-      <HomeSectionTwo
-        events={events}
-        onGetTickets={(el) => setSelectedEventUrl(el)} 
-      />
-
-      {selectedEventUrl && (
-        <Subscribe
-          eventUrl={selectedEventUrl}
-          onClose={() => setSelectedEventUrl(null)}
-        />
+          <p onClick={() => setStep("login")} className="link">
+            Already registered? Login
+          </p>
+        </form>
       )}
-    </>
+
+      {step === "otp" && (
+        <form onSubmit={handleVerifyOtp}>
+          <input
+            name="otp"
+            placeholder="Enter OTP"
+            onChange={handleChange}
+            required
+          />
+
+          <button disabled={loading}>
+            {loading ? "Verifying..." : "Verify OTP"}
+          </button>
+        </form>
+      )}
+
+      {step === "login" && (
+        <form onSubmit={handleLogin}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+
+          <button disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          <p onClick={() => setStep("register")} className="link">
+            New user? Register
+          </p>
+        </form>
+      )}
+    </div>
   );
 }
